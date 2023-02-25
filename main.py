@@ -4,12 +4,14 @@ import numpy as np
 import time
 from random import randint, choice
 from math import ceil
-import keyboard
+# import keyboard
 
 on = True
 
 def execute():
     on = False # The function you want to execute to stop the loop
+
+# keyboard.add_hotkey("shift+a", execute)  # add the hotkey
 
 def pascal_row(n):
     # This returns the nth row of Pascal's Triangle
@@ -111,6 +113,7 @@ def random_mouse_move(field_width=300, field_height=300, hours=6):
 
         old_point = point  # Remember previous point
 
+        pyautogui.hotkey('ctrl', 'c')  # ctrl-c to copy
         pyautogui.click()  # click the mouse
         pyautogui.scroll(randint(1, 10))  # scroll up 10 "clicks"
         pyautogui.scroll(-randint(1, 10))  # scroll down 10 "clicks"
@@ -120,7 +123,6 @@ def random_mouse_move(field_width=300, field_height=300, hours=6):
         time.sleep(np.random.normal(0.5, 0.1))
 
 def main():
-    # keyboard.add_hotkey("shift+a", execute)  # add the hotkey
     random_mouse_move(300, 300, 6)
 
 if __name__ == '__main__':
