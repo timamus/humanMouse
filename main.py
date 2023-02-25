@@ -116,7 +116,7 @@ def random_mouse_move(field_width=300, field_height=300, hours=6):
         pyautogui.hotkey('ctrl', 'c')  # ctrl-c to copy
         pyautogui.click()  # click the mouse
         pyautogui.scroll(randint(1, 10))  # scroll up 10 "clicks"
-        pyautogui.scroll(-randint(1, 10))  # scroll down 10 "clicks"
+        pyautogui.scroll(-randint(1, 4))  # scroll down 10 "clicks"
         # pyautogui.click(button='right')  # right-click the mouse
 
         # Pause briefly to simulate human behavior
