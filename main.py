@@ -76,7 +76,7 @@ def mouse_bez(init_pos, fin_pos, deviation, speed):
 
     return points
 
-def random_mouse_move(field_width=800, field_height=600, hours=6):
+def random_mouse_move(field_width=300, field_height=300, hours=6):
     '''
     :param field_width: your screen width
     :param field_height: your screen height
@@ -84,7 +84,6 @@ def random_mouse_move(field_width=800, field_height=600, hours=6):
     '''
     # Define center of screen and field size
     center_x, center_y = pyautogui.size()[0] // 2, pyautogui.size()[1] // 2  # Detect screen center
-    field_width, field_height = 800, 600
 
     old_point = [center_x, center_y]  # Previous point, the first value is the center of the field
     interval = 0  # Interval when fast move apply
@@ -105,16 +104,16 @@ def random_mouse_move(field_width=800, field_height=600, hours=6):
 
         if interval < 3:
             for x in points:
-                pyautogui.moveTo(x[0], x[1], duration=0.1)
+                pyautogui.moveTo(x[0], x[1])
         else:
             pyautogui.moveTo(point[0], point[1], duration=0.5)  # Move mouse cursor to point quickly
             interval = 0
 
         old_point = point  # Remember previous point
 
-        pyautogui.scroll(100)  # scroll up 10 "clicks"
-        pyautogui.scroll(-100)  # scroll down 10 "clicks"
-
+        pyautogui.click()  # click the mouse
+        pyautogui.scroll(randint(1, 100))  # scroll up 10 "clicks"
+        pyautogui.scroll(-randint(1, 100))  # scroll down 10 "clicks"
         # pyautogui.click(button='right')  # right-click the mouse
 
         # Pause briefly to simulate human behavior
@@ -122,7 +121,7 @@ def random_mouse_move(field_width=800, field_height=600, hours=6):
 
 def main():
     # keyboard.add_hotkey("shift+a", execute)  # add the hotkey
-    random_mouse_move(800, 600, 6)
+    random_mouse_move(300, 300, 6)
 
 if __name__ == '__main__':
     main()
