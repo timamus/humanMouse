@@ -112,8 +112,8 @@ def random_mouse_move(field_width=300, field_height=300, hours=6):
         old_point = point  # Remember previous point
 
         pyautogui.click()  # click the mouse
-        pyautogui.scroll(randint(1, 100))  # scroll up 10 "clicks"
-        pyautogui.scroll(-randint(1, 100))  # scroll down 10 "clicks"
+        pyautogui.scroll(randint(1, 10))  # scroll up 10 "clicks"
+        pyautogui.scroll(-randint(1, 10))  # scroll down 10 "clicks"
         # pyautogui.click(button='right')  # right-click the mouse
 
         # Pause briefly to simulate human behavior
