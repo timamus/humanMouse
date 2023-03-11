@@ -94,7 +94,7 @@ def random_mouse_move(field_width=300, field_height=300, hours=6):
     # num_steps = 10
     # for i in range(num_steps):
     t_end = time.time() + 60 * 60 * hours
-    while time.time() < t_end or on:
+    while time.time() < t_end:
         interval += 1
         # Generate random point
         point = np.random.rand(2) * [field_width, field_height] + [center_x - field_width // 2, center_y - field_height // 2]
