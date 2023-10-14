@@ -123,7 +123,7 @@ def random_mouse_move(field_width=300, field_height=300, hours=6):
         time.sleep(np.random.normal(0.5, 0.1))
 
 def main():
-    random_mouse_move(300, 300, 6)
+    random_mouse_move(200, 200, 8)
 
 if __name__ == '__main__':
     main()
