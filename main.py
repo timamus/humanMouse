@@ -78,7 +78,7 @@ def mouse_bez(init_pos, fin_pos, deviation, speed):
 
     return points
 
-def random_mouse_move(field_width=300, field_height=300, hours=6):
+def random_mouse_move(field_width=200, field_height=200, hours=8):
     '''
     :param field_width: your screen width
     :param field_height: your screen height
