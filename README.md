@@ -33,4 +33,4 @@ Categories=Utility;
 EOF
 ```
 
-This script first ensures that the ~/.local/share/applications/ directory exists. Then it creates or overwrites the HumanMouse.desktop file in that directory with the content you specified. After executing these commands, "Human Mouse" should be accessible from your application menu.
+This script first ensures that the ~/.local/share/applications/ directory exists. Then it creates or overwrites the humanMouse.desktop file in that directory with the content you specified. After executing these commands, "Human Mouse" should be accessible from your application menu.
