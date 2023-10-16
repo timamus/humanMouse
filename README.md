@@ -22,7 +22,7 @@ To create a `.desktop` file that will be accessible from your Linux distribution
 mkdir -p ~/.local/share/applications/
 
 # Create or overwrite the .desktop file with the content you provided
-cat > ~/.local/share/applications/HumanMouse.desktop << EOF
+cat > ~/.local/share/applications/humanMouse.desktop << EOF
 [Desktop Entry]
 Name=Human Mouse
 Exec=/home/test/humanMouse/run_humanMouse.sh
