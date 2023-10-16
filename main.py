@@ -4,7 +4,13 @@ import numpy as np
 import time
 from random import randint, choice
 from math import ceil
+import sys
+import threading
 # import keyboard
+import os
+
+def clear_terminal():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 on = True
 
@@ -113,7 +119,10 @@ def random_mouse_move(field_width=200, field_height=200, hours=8):
 
         old_point = point  # Remember previous point
 
-        pyautogui.hotkey('ctrl', 'c')  # ctrl-c to copy
+        pyautogui.press('ctrl')
+        time.sleep(0.5)  # задержка в полсекунды
+        pyautogui.press('alt')
+        time.sleep(0.5)  # задержка в полсекунды
         pyautogui.click()  # click the mouse
         pyautogui.scroll(randint(1, 10))  # scroll up 10 "clicks"
         pyautogui.scroll(-randint(1, 4))  # scroll down 10 "clicks"
@@ -122,8 +131,30 @@ def random_mouse_move(field_width=200, field_height=200, hours=8):
         # Pause briefly to simulate human behavior
         time.sleep(np.random.normal(0.5, 0.1))
 
+def spinning_cursor():
+    sys.stdout.write('Processing... ')
+    sys.stdout.flush()
+    while not done:
+        for cursor in '|/-\\':
+            sys.stdout.write(cursor)
+            sys.stdout.flush()
+            time.sleep(0.5)
+            sys.stdout.write('\b')
+            sys.stdout.flush()
+
+done = False
+
 def main():
-    random_mouse_move(200, 200, 8)
+    clear_terminal()
+    global done
+    spinner = threading.Thread(target=spinning_cursor)
+    spinner.start()
+
+    try:
+        random_mouse_move(200, 200, 8)
+    finally:
+        done = True
+        spinner.join()
 
 if __name__ == '__main__':
     main()
