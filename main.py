@@ -1,4 +1,3 @@
-# This is a sample Python script.
 import pyautogui as pyautogui
 import numpy as np
 import time
@@ -90,6 +89,7 @@ def random_mouse_move(field_width=200, field_height=200, hours=8):
     :param field_height: your screen height
     :param hours: How many hours will the mouse move
     '''
+    global on_break
     # Define center of screen and field size
     center_x, center_y = pyautogui.size()[0] // 2, pyautogui.size()[1] // 2  # Detect screen center
 
@@ -101,53 +101,83 @@ def random_mouse_move(field_width=200, field_height=200, hours=8):
     # for i in range(num_steps):
     t_end = time.time() + 60 * 60 * hours
     while time.time() < t_end:
-        interval += 1
-        # Generate random point
-        point = np.random.rand(2) * [field_width, field_height] + [center_x - field_width // 2, center_y - field_height // 2]
+        # Определение времени работы и перерыва
+        work_time = randint(20, 40) * 60  # Случайное время работы от 20 до 40 минут
+        break_time = randint(10, 20) * 60  # Случайный перерыв от 10 до 20 минут
 
-        point1 = [round(old_point[0]), round(old_point[1])]
-        point2 = [round(point[0]), round(point[1])]
+        # Для тестирования
+        # work_time = randint(60, 120) # Случайное время работы от 1 до 2 минут
+        # break_time = randint(30, 60)  # Случайный перерыв от 30 до 60 секунд
+        
+        # Работа в течение определенного времени
+        t_work_end = time.time() + work_time
+        while time.time() < t_work_end and time.time() < t_end:
+            interval += 1
+            # Generate random point
+            point = np.random.rand(2) * [field_width, field_height] + [center_x - field_width // 2, center_y - field_height // 2]
 
-        points = mouse_bez(point1, point2, 2, 1)  # Get an array of points of the Bezier curve
+            point1 = [round(old_point[0]), round(old_point[1])]
+            point2 = [round(point[0]), round(point[1])]
 
-        if interval < 3:
-            for x in points:
-                pyautogui.moveTo(x[0], x[1])
-        else:
-            pyautogui.moveTo(point[0], point[1], duration=0.5)  # Move mouse cursor to point quickly
-            interval = 0
+            points = mouse_bez(point1, point2, 2, 1)  # Get an array of points of the Bezier curve
 
-        old_point = point  # Remember previous point
+            if interval < 3:
+                for x in points:
+                    pyautogui.moveTo(x[0], x[1])
+            else:
+                pyautogui.moveTo(point[0], point[1], duration=0.5)  # Move mouse cursor to point quickly
+                interval = 0
 
-        pyautogui.press('ctrl')
-        time.sleep(0.5)  # задержка в полсекунды
-        pyautogui.press('alt')
-        time.sleep(0.5)  # задержка в полсекунды
-        pyautogui.click()  # click the mouse
-        pyautogui.scroll(randint(1, 10))  # scroll up 10 "clicks"
-        pyautogui.scroll(-randint(1, 4))  # scroll down 10 "clicks"
-        # pyautogui.click(button='right')  # right-click the mouse
+            old_point = point  # Remember previous point
 
-        # Pause briefly to simulate human behavior
-        time.sleep(np.random.normal(0.5, 0.1))
+            pyautogui.press('ctrl')
+            time.sleep(0.5)  # задержка в полсекунды
+            pyautogui.press('alt')
+            time.sleep(0.5)  # задержка в полсекунды
+            pyautogui.click()  # click the mouse
+            pyautogui.scroll(randint(1, 10))  # scroll up 10 "clicks"
+            pyautogui.scroll(-randint(1, 4))  # scroll down 10 "clicks"
+            # pyautogui.click(button='right')  # right-click the mouse
 
-def spinning_cursor():
-    sys.stdout.write('Processing... ')
-    sys.stdout.flush()
+            # Pause briefly to simulate human behavior
+            time.sleep(np.random.normal(0.5, 0.1))
+        on_break = True
+        print(f"\nTaking a break for {break_time/60} minutes.")
+        time.sleep(break_time)
+        on_break = False
+
+start_time = time.time()  # Запоминаем время начала работы скрипта
+work_time_accumulated = 0  # Накопленное время работы без учета перерывов
+on_break = False  # Флаг для отслеживания перерыва
+
+def track_time():
+    global on_break, work_time_accumulated
+    last_time_checked = start_time
+
     while not done:
-        for cursor in '|/-\\':
-            sys.stdout.write(cursor)
+        current_time = time.time()
+        if not on_break:
+            work_time_accumulated += current_time - last_time_checked
+            elapsed_hours = int(work_time_accumulated // 3600)
+            elapsed_minutes = int((work_time_accumulated % 3600) // 60)
+            elapsed_seconds = int(work_time_accumulated % 60)
+
+            # Очищаем строку перед выводом
+            sys.stdout.write('\r' + ' ' * 50)  # Очищаем строку
             sys.stdout.flush()
-            time.sleep(0.5)
-            sys.stdout.write('\b')
+
+            # Выводим обновленное время
+            sys.stdout.write(f'\rProcessing... Time elapsed: {elapsed_hours}h {elapsed_minutes}m {elapsed_seconds}s')
             sys.stdout.flush()
+        last_time_checked = current_time
+        time.sleep(1)
 
 done = False
 
 def main():
     clear_terminal()
     global done
-    spinner = threading.Thread(target=spinning_cursor)
+    spinner = threading.Thread(target=track_time)
     spinner.start()
 
     try:
