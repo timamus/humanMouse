@@ -102,7 +102,7 @@ def random_mouse_move(field_width=200, field_height=200, hours=8):
     t_end = time.time() + 60 * 60 * hours
     while time.time() < t_end:
         # Определение времени работы и перерыва
-        work_time = randint(10, 40) * 60  # Случайное время работы от 10 до 40 минут
+        work_time = randint(10, 30) * 60  # Случайное время работы от 10 до 30 минут
         break_time = randint(8, 14) * 60  # Случайный перерыв от 8 до 14 минут (свыше 15 минут может заблокироваться сеанс RDP)
 
         # Для тестирования
