@@ -25,7 +25,7 @@ mkdir -p ~/.local/share/applications/
 cat > ~/.local/share/applications/humanMouse.desktop << EOF
 [Desktop Entry]
 Name=Human Mouse
-Exec=/home/test/humanMouse/run_humanMouse.sh
+Exec=$HOME/humanMouse/run_humanMouse.sh
 Icon=system-icon-name
 Type=Application
 Terminal=true
