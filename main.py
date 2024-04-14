@@ -1,3 +1,4 @@
+import datetime
 import pyautogui as pyautogui
 import numpy as np
 import time
@@ -101,9 +102,19 @@ def random_mouse_move(field_width=200, field_height=200, hours=8):
     # for i in range(num_steps):
     t_end = time.time() + 60 * 60 * hours
     while time.time() < t_end:
+        current_time = datetime.datetime.now()
+        if current_time.hour == 18 and 0 <= current_time.minute < 45:
+            break  # Остановить скрипт после 18:00 до 18:45
         # Определение времени работы и перерыва
-        work_time = randint(10, 30) * 60  # Случайное время работы от 10 до 30 минут
-        break_time = randint(8, 14) * 60  # Случайный перерыв от 8 до 14 минут (свыше 15 минут может заблокироваться сеанс RDP)
+        # Условие будет выполняться, если текущее время находится в диапазоне с 12:50 до 14:10.
+        if ((current_time.hour == 12 and current_time.minute >= 50) or 
+        (13 <= current_time.hour < 14) or 
+        (current_time.hour == 14 and current_time.minute < 10)):
+            break_time = 14 * 60  # 14 минут обеденного перерыва
+            work_time = 30 # только 30 секунд рабочего времени
+        else:
+            break_time = randint(8, 14) * 60  # Случайный перерыв от 8 до 14 минут (свыше 15 минут может заблокироваться сеанс RDP)
+            work_time = randint(10, 30) * 60  # Случайное время работы от 10 до 30 минут
 
         # Для тестирования
         # work_time = randint(60, 120) # Случайное время работы от 1 до 2 минут
