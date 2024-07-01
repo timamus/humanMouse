@@ -20,7 +20,7 @@ For Windows:
 - `git clone https://github.com/timamus/humanMouse.git`
 - `cd humanMouse/`
 - `python -m venv venv`
-- `venv/Scripts/activate`
+- `call venv\Scripts\activate`
 - `pip install -r requirements.txt`
 - `deactivate`
 
