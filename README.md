@@ -4,12 +4,23 @@ A script written in Python to cheat time-keeping programs such as CrocoTime. Bez
 
 ## Quick start
 
+For Linux:
+
 - `sudo apt update && sudo apt install -y git`
 - `git clone https://github.com/timamus/humanMouse.git`
 - `cd humanMouse/`
 - `find ./ -name "*.sh" -exec chmod +x {} \;`
 - `python3 -m venv venv`
 - `source venv/bin/activate`
+- `pip install -r requirements.txt`
+- `deactivate`
+
+For Windows:
+
+- `git clone https://github.com/timamus/humanMouse.git`
+- `cd humanMouse/`
+- `python -m venv venv`
+- `venv/Scripts/activate`
 - `pip install -r requirements.txt`
 - `deactivate`
 
